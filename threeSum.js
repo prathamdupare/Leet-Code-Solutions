@@ -24,40 +24,35 @@ threeSumBrute(nums);
 
 // Optimized
 
-const threeSum2 = (nums, target) => {
+const threeSum2 = function (nums) {
   let result = [];
   nums.sort((a, b) => a - b);
-  const n = nums.length;
+  let sum = 0;
+  n = nums.length;
 
-  for (let i = 0; i < n - 3; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
+  for (let i = 0; i < n - 2; i++) {
+    let a = nums[i];
+    if (i > 0 && a == nums[i - 1]) continue;
 
-    for (let j = i + 1; j < n - 2; j++) {
-      if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+    let right = n - 1;
+    let left = i + 1;
 
-      let left = j + 1;
-      let right = n - 1;
+    while (left < right) {
+      sum = a + nums[left] + nums[right];
 
-      while (left < right) {
-        let sum = nums[i] + nums[j] + nums[left] + nums[right];
+      if (sum < 0) {
+        left++;
+      } else if (sum > 0) {
+        right--;
+      } else {
+        result.push([a, nums[left], nums[right]]);
 
-        if (sum < target) {
-          left++;
-        } else if (sum > target) {
-          right--;
-        } else {
-          result.push([nums[i], nums[j], nums[left], nums[right]]);
-          left++;
-          right--;
-
-          while (left < right && nums[left] === nums[left - 1]) left++;
-          while (left < right && nums[right] === nums[right + 1]) right--;
-        }
+        left++;
+        while (nums[left] == nums[left - 1] && left < right) left++;
       }
     }
   }
-
-  console.log(result);
+  return result;
 };
 const nums2 = [2, 2, 2, 2, 2];
 threeSum2(nums2);
