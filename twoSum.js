@@ -20,4 +20,4 @@ const twoSum = (nums, target) => {
   return result;
 };
 
-// Optimized with O_n
+// Optimized with O^n
